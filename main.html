@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c8102e">
+<title>Ragadex</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap">
+<style>
+:root{--body:#c8102e;--body-d:#8f0a20;--lcd:#9bbc0f;--lcd-m:#8bac0f;--ink:#0f380f;--ink-s:#306230;--bg:#2b2b2b;--btn:#f3f3f3;--btn-t:#222;--blue:#3aa0ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--body:#a50d27;--body-d:#6e0817}}
+:root[data-theme="dark"]{--bg:#111;--body:#a50d27;--body-d:#6e0817}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);font-family:"VT323","Courier New",monospace;font-size:21px;color:var(--ink)}
+.dex{height:100%;max-width:520px;margin:0 auto;background:var(--body);display:flex;flex-direction:column;border-left:4px solid var(--body-d);border-right:4px solid var(--body-d)}
+.top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:4px solid var(--body-d)}
+.lens{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bfe3ff,var(--blue) 45%,#0b5cad);border:4px solid #fff;flex:none}
+.led{width:13px;height:13px;border-radius:50%;border:2px solid #222;flex:none}
+.top h1{font:14px/1.2 "Press Start 2P","Courier New",monospace;color:#fff;margin:0 0 0 auto;text-shadow:2px 2px 0 var(--body-d)}
+.logo{height:34px;width:auto}
+.frame{flex:1;min-height:0;margin:12px 14px 6px;background:#d9d9d9;border-radius:10px 10px 10px 40px;padding:12px 12px 18px;border:3px solid #999;display:flex}
+.screen{flex:1;overflow-y:auto;background:var(--lcd);border:4px solid var(--ink-s);border-radius:4px;padding:10px;box-shadow:inset 0 0 18px rgba(15,56,15,.45)}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px 14px 14px}
+.nav button{font:9px/1.3 "Press Start 2P","Courier New",monospace;background:var(--btn);color:var(--btn-t);border:0;border-bottom:4px solid #999;border-radius:8px;padding:11px 2px;min-height:44px}
+.nav button.on{background:#ffd23f}
+.nav .add{background:#2fbf71;color:#fff;border-bottom-color:#1c7d49}
+h2{font:12px/1.5 "Press Start 2P","Courier New",monospace;margin:4px 0 10px}
+h3{font:10px/1.5 "Press Start 2P","Courier New",monospace;margin:14px 0 8px;color:var(--ink-s)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.tile{background:var(--lcd-m);border:2px solid var(--ink);padding:6px 2px;text-align:center;font:inherit;color:var(--ink);line-height:1.05;min-height:84px}
+.tile .n{font:7px "Press Start 2P",monospace;display:block;margin-bottom:3px}
+.tile .f{font-size:30px;display:block}
+.tile.lock .f{filter:brightness(0) contrast(.6);opacity:.35}
+.tile.lock{border-style:dashed;opacity:.8}
+.tile.pop{animation:pop .6s}
+@keyframes pop{30%{transform:scale(1.15);background:#d4ff5a}}
+@media (prefers-reduced-motion:reduce){.tile.pop{animation:none}}
+.row{display:flex;align-items:center;gap:10px;width:100%;background:var(--lcd-m);border:2px solid var(--ink);padding:7px 9px;margin-bottom:7px;font:inherit;color:var(--ink);text-align:left}
+.row .e{font-size:30px}
+.row .m{flex:1;min-width:0}.row b{font-weight:400;font-size:24px;display:block}
+.bar{display:flex;align-items:center;gap:8px;margin:3px 0}.bar span{width:110px}
+.bar i{flex:1;height:12px;border:2px solid var(--ink);display:flex}.bar u{background:var(--ink);display:block}
+.badge{display:inline-block;border:2px solid var(--ink);padding:0 7px;margin:0 5px 5px 0;background:var(--ink);color:var(--lcd)}
+.r1{--rc:#7d8f6a;--rt:#0f380f}.r2{--rc:#2e9b4e;--rt:#fff}.r3{--rc:#2f6fe0;--rt:#fff}.r4{--rc:#8a3fd1;--rt:#fff}.r5{--rc:#ffc400;--rt:#3a2300}
+.rar{letter-spacing:1px}
+.row{border-left:10px solid var(--rc,var(--ink))}
+.rchip{display:inline-block;background:var(--rc);color:var(--rt);font:8px/1 "Press Start 2P",monospace;padding:4px 6px;margin-left:6px}
+.rban{background:var(--rc);color:var(--rt);text-align:center;padding:12px 6px;margin:10px 0;border:3px solid var(--ink)}
+.rban b{display:block;font:12px/1.5 "Press Start 2P",monospace;font-weight:400}
+.rban .st{font-size:30px;letter-spacing:3px;display:block}
+.rban.r5{background:linear-gradient(110deg,#ffb300,#fff2a0 45%,#ffb300 60%);background-size:250% 100%;animation:shine 2.4s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+@media (prefers-reduced-motion:reduce){.rban.r5{animation:none}}
+.cnt{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}.cnt span{background:var(--rc);color:var(--rt);padding:1px 7px;font-size:19px}
+.box{border:2px solid var(--ink);padding:8px;margin:10px 0;background:var(--lcd-m)}
+.btn{font:9px/1.4 "Press Start 2P","Courier New",monospace;background:var(--ink);color:var(--lcd);border:0;padding:11px 12px;margin:4px 6px 4px 0;min-height:42px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+label{display:block;margin:10px 0 2px}
+input,select,textarea{width:100%;font:inherit;font-size:21px;background:var(--lcd-m);color:var(--ink);border:2px solid var(--ink);padding:5px 7px;border-radius:0}
+textarea{min-height:80px;resize:vertical}
+input[type=range]{padding:0;accent-color:var(--ink)}
+.med{display:flex;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--ink-s)}
+.med .e{font-size:30px;width:40px;text-align:center}.med.lock .e{filter:grayscale(1) brightness(.4);opacity:.4}.med.lock{opacity:.6}
+.med small{display:block;font-size:18px;color:var(--ink-s)}
+.chips span{display:inline-block;border:1px solid var(--ink);padding:0 5px;margin:0 4px 4px 0;font-size:18px}.chips .x{opacity:.35;border-style:dashed}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--lcd);padding:10px 14px;max-width:88%;text-align:center;border:3px solid var(--lcd);display:none;z-index:5}
+.muted{color:var(--ink-s)}
+.pk{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.pk span{cursor:pointer;border:2px solid var(--ink);padding:3px 8px;background:var(--lcd-m);font-size:20px;user-select:none}.pk span.on{background:var(--ink);color:var(--lcd)}
+.pk.em{max-height:190px;overflow-y:auto;border:2px solid var(--ink);padding:4px}.pk.em span{font-size:26px;padding:2px 5px;border-color:transparent;background:transparent}.pk.em span.on{background:var(--ink);border-color:var(--ink)}
+.sw{display:flex;gap:10px;align-items:center}.sw input{width:26px;height:26px;flex:none}
+</style>
+</head>
+<body>
+<div class="dex">
+  <div class="top">
+    <div class="lens"></div><div class="led" style="background:#ff4b4b"></div><div class="led" style="background:#ffd23f"></div><div class="led" style="background:#2fbf71"></div>
+    <!-- LOGO: sostituisci src con il tuo file -->
+    <img class="logo" src="LOGO_QUI.png" alt="" onerror="this.style.display='none'">
+    <h1>HOEKÉDEX</h1>
+  </div>
+  <div class="frame"><div class="screen" id="scr"></div></div>
+  <div class="nav" id="nav">
+    <button data-v="dex">DEX</button><button data-v="medals">MEDAGLIE</button><button class="add" data-v="form:new">+ NUOVA</button><button data-v="set">OPZIONI</button>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+<script>
+const G=["Europa","Slava / Est","Africa","Asia","Americhe","Oceania"];
+const T=[["IT","Italiana","🇮🇹",0,1],["FR","Francese","🇫🇷",0,2],["ES","Spagnola","🇪🇸",0,2],["PT","Portoghese","🇵🇹",0,2],["DE","Tedesca","🇩🇪",0,2],["GB","Britannica / Irlandese","🇬🇧",0,2],["NL","Olandese / Belga","🇳🇱",0,3],["GR","Greca","🇬🇷",0,3],["RO","Rumena","🇷🇴",0,2],["SC","Scandinava","🇸🇪",0,4],["EU","Altra europea","🇪🇺",0,3],
+["PL","Polacca","🇵🇱",1,2],["RU","Russa","🇷🇺",1,3],["UA","Ucraina","🇺🇦",1,3],["BK","Balcanica","🇷🇸",1,3],
+["MG","Magrebina","🇲🇦",2,3],["SS","Sudafricana","🇳🇬",2,4],
+["ME","Medio Oriente","🇹🇷",3,4],["AC","Asia centrale","🇰🇿",3,5],["AM","Asia meridionale","🇮🇳",3,4],["AO","Asia orientale","🇨🇳",3,4],["SE","Sud-est asiatico","🇻🇳",3,4],
+["NA","Nordamericana","🇺🇸",4,3],["LA","Latina","🇧🇷",3+0,3],
+["OC","Oceania","🇦🇺",5,5]];
+T[23][3]=4;
+const HY=["HY","Ibride","🧬",6,4];
+/* DESCRIZIONI PREIMPOSTATE: scrivi il testo tra le virgolette. HY = slot Ibride */
+const DESC={
+IT:"Specie diffusissima, si avvista ovunque. Gesticola anche al telefono e giudica con severità la tua carbonara.",
+FR:"Elegante e misteriosa. Un suo sospiro vale tre frasi, e ha sempre un’opinione sul formaggio.",
+ES:"Nottambula per natura. Cena alle dieci, esce a mezzanotte e il giorno dopo è comunque piena di energia.",
+PT:"Dolce e malinconica, ha una parola intraducibile per ogni stato d’animo. Si riconosce dal sorriso.",
+DE:"Puntualissima per istinto: se dice alle otto, sono le otto meno cinque. Ironia secca, cuore grande.",
+GB:"Ama il tè, il tempo uggioso e le scuse (“sorry”) dette a sproposito. Fuori dal pub si trasforma.",
+NL:"Alta, pratica e diretta. Va in bici con ogni clima e dice sempre quello che pensa.",
+GR:"Ospitale e solare, offre cibo prima ancora di salutare. Teatrale quanto basta nelle discussioni.",
+RO:"Determinata e ingegnosa. Parla una lingua latina che ti sembra di capire, finché non ci provi.",
+SC:"Rarità fredda e luminosa. Calma, minimalista, ama il silenzio e le candele. Si scioglie solo dopo il terzo caffè.",
+EU:"Specie europea non catalogata. Il suo habitat è un punto della mappa che non avevi ancora esplorato.",
+PL:"Cordiale e tenace. Il suo brindisi è un rito e la sua cucina un incantesimo di zuppe.",
+RU:"Riservata all’inizio, leale per sempre. Lo sguardo serio nasconde un umorismo scurissimo.",
+UA:"Forte e luminosa, resiste a tutto con un sorriso. Sa cantare, ricamare e tenere testa a chiunque.",
+BK:"Calorosa e fiera, ti obbliga a mangiare ancora un po’. Ha storie lunghe e gesti larghi.",
+MG:"Generosa e magnetica, con un tè alla menta sempre pronto. Parla tre lingue in una frase.",
+SS:"Energia pura, stile inconfondibile, risata che si sente da lontano. Dove arriva, la stanza cambia musica.",
+ME:"Ospitale e raffinata, ti offre dolci e tè finché non ti arrendi. Occhi che raccontano più delle parole.",
+AC:"Specie rarissima, avvistata di rado. Custodisce le tradizioni della steppa e un fascino da altopiano.",
+AM:"Colorata e curiosa, ha sempre un’opinione sulle spezie. Famiglia grande, cuore ancora più grande.",
+AO:"Precisa, curiosa e piena di sorprese. Conosce ogni nuova tendenza prima che arrivi.",
+SE:"Solare e instancabile, sorride sempre. Ama il caffè ghiacciato e il cibo da strada più di tutto.",
+NA:"Estroversa e positiva, saluta tutti come vecchi amici. Il suo “awesome” ha mille sfumature.",
+LA:"Calda, ballerina e rumorosa nel modo migliore. Abbraccia al primo incontro e la puntualità è un optional.",
+OC:"Leggendaria per distanza geografica. Rilassata e abbronzata, risponde a tutto con “no worries”.",
+HY:"Esemplare a doppio tipo. Due culture in una persona sola, con le parti migliori di entrambe e qualche contraddizione divertente."};
+const TDESC={
+gotica:"Sceglie il nero come filosofia di vita. Eyeliner affilato, playlist malinconica, ma sotto è tenerissima.",
+culona:"Il suo punto di forza è ben visibile: lascia una scia di teste che si voltano.",
+trans:"Orgogliosa di chi è, con una sicurezza che molti non trovano mai. Un incontro raro.",
+nerd:"Sa tutto di fumetti, giochi o serie. Se tocchi il suo tema preferito, sei perso per un’ora.",
+sportiva:"Energia da vendere. Ti sfida a una corsa e vince.",
+tatuata:"Ogni tatuaggio ha una storia. Chiedila, ma preparati a un racconto lungo.",
+alternativa:"Segue regole tutte sue. Ascolta musica che non conosci e se ne vanta a ragione.",
+rossa:"Colore raro in natura: un’apparizione che si nota subito. Carattere acceso come i capelli.",
+occhialuta:"Gli occhiali le danno un’aria da secchiona: guarda con attenzione e capisce tutto.",
+festaiola:"Dove c’è musica, lei c’è già. Facile da incontrare, impossibile da fermare.",
+timida:"All’inizio dice poco. Dopo un po’ scopri che ha le battute migliori.",
+alta:"Domina la stanza dall’alto e vede tutto prima di te.",
+tettona:"Caratteristica ben visibile: difficile non notarla, e il sorriso fa il resto.",
+cicciona:"Morbida e accogliente, con un abbraccio che vale un divano. Cucina bene e ride di gusto.",
+curvy:"Forme da clessidra e sicurezza da regina.",
+palestrata:"Alza più di te e te lo dice con gentilezza. Colazione proteica, sguardo da allenamento.",
+piercing:"Un luccichio qua e là: ogni piercing è un piccolo segnale di carattere.",
+provocante:"Lo sguardo dice più del dovuto. Sa quello che fa e lo fa con ironia.",
+bionda:"Biondo luminoso, sole in tasca. Attira l’attenzione anche con il cielo coperto.",
+mora:"Fascino classico e sguardo intenso. Il colore che non passa mai di moda."};
+const RL=["","Comune","Non comune","Raro","Epico","Leggendario"];
+const REG=["Valle d’Aosta","Piemonte","Lombardia","Liguria","Trentino-Alto Adige","Veneto","Friuli-Venezia Giulia","Emilia-Romagna","Toscana","Umbria","Marche","Lazio","Abruzzo","Molise","Campania","Puglia","Basilicata","Calabria","Sicilia","Sardegna"];
+const EMO=["👩","👩‍🦰","👱‍♀️","👩‍🦱","👩‍🦳","🧕","👸","🦸‍♀️","🧙‍♀️","🧚‍♀️","🐱","🌸","⭐","🔥","🍀","🦋"];
+const EMOS=["👩","👩‍🦰","👱‍♀️","👩‍🦱","👩‍🦳","👧","🧕","👸","🧙‍♀️","🧚‍♀️","🦸‍♀️","🦹‍♀️","🧛‍♀️","🧝‍♀️","🧜‍♀️","💃","👩‍🎤","👩‍🎨","👩‍🔬","👩‍💻","👩‍🎓","👩‍✈️","👩‍🚀","👩‍🍳","🏃‍♀️","🏄‍♀️","🧘‍♀️","🤸‍♀️","🐱","🐰","🦊","🐼","🐯","🦄","🐺","🦇","🦋","🐝","🐙","🌸","🌹","🌻","🍀","🌙","⭐","🔥","❄️","⚡","🌈","🍒","🍓","🍑","🍋","🍕","☕","🎧","🎸","📚","💎","👑","🖤","💜","💖","🎀","😎","😈","😇","🥰","😏","🤓","🥳","😴","🤪","🙃"];
+const TR=[["gotica","🖤","Gotica"],["culona","🍑","Culona"],["trans","🏳️‍⚧️","Trans"],["nerd","🤓","Nerd"],["sportiva","🏅","Sportiva"],["tatuata","🐉","Tatuata"],["alternativa","🎸","Alternativa"],["rossa","🔥","Rossa"],["occhialuta","👓","Occhialuta"],["tettona","🍈","Tettona"],["cicciona","🍩","Cicciona"],["curvy","⏳","Curvy"],["palestrata","💪","Palestrata"],["piercing","💍","Piercing"],["provocante","😘","Provocante"],["bionda","👱‍♀️","Bionda"],["mora","👩‍🦱","Mora"],["festaiola","🪩","Festaiola"],["timida","🫣","Timida"],["alta","🦒","Alta"]];
+const trl=k=>{const t=TR.find(x=>x[0]===k);return t?t[1]+" "+t[2]:k};
+const hasT=t=>db.cards.some(c=>(c.tr||[]).includes(t));
+const tp=id=>id==="HY"?HY:T.find(t=>t[0]===id);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let db={cards:[],pin:""},view="dex",unlockedSess=false,delArm="",justNew="";
+try{const r=localStorage.getItem("ragadex_v1");if(r){const d=JSON.parse(r);if(d&&Array.isArray(d.cards))db=d}}catch(e){}
+function save(){try{localStorage.setItem("ragadex_v1",JSON.stringify(db))}catch(e){toast("Salvataggio non riuscito")}}
+function hash(s){let x=5381;for(const ch of s)x=((x*33)^ch.charCodeAt(0))>>>0;return x.toString(36)}
+function toast(t){const el=$("#toast");el.textContent=t;el.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>el.style.display="none",3500)}
+const hv=(c,k)=>(c.tr||[]).includes(k);
+const RR=[["Gotica + Culona",c=>hv(c,"gotica")&&hv(c,"culona"),1],["Tettona + Culona",c=>hv(c,"tettona")&&hv(c,"culona"),1],["Tatuata + Piercing",c=>hv(c,"tatuata")&&hv(c,"piercing"),1],["Nerd + Sportiva",c=>hv(c,"nerd")&&hv(c,"sportiva"),1],["Rossa",c=>hv(c,"rossa"),1],["Trans",c=>hv(c,"trans"),1],["4+ caratteristiche",c=>(c.tr||[]).length>=4,1],["Cicciona",c=>hv(c,"cicciona"),-1],["Festaiola",c=>hv(c,"festaiola"),-1]];
+const rbase=c=>{let r=tp(c.p)[4];if(c.s&&tp(c.s))r=Math.max(r,tp(c.s)[4])+1;return r};
+const rmods=c=>RR.filter(x=>x[1](c));
+const rar=c=>Math.max(1,Math.min(5,rbase(c)+rmods(c).reduce((a,x)=>a+x[2],0)));
+const stars=r=>"★".repeat(r)+"☆".repeat(5-r);
+const cardsOf=id=>db.cards.filter(c=>id==="HY"?!!c.s:(!c.s&&c.p===id));
+const unl=()=>new Set(db.cards.map(c=>c.s?"HY":c.p));
+const regs=()=>new Set(db.cards.filter(c=>c.reg&&(c.p==="IT"||c.s==="IT")).map(c=>c.reg));
+const MED=[
+["first","🎖️","Primo contatto","Registra la prima scheda",()=>db.cards.length>=1],
+["c10","🥉","Collezionista I","10 schede",()=>db.cards.length>=10],
+["c25","🥈","Collezionista II","25 schede",()=>db.cards.length>=25],
+["c50","🥇","Collezionista III","50 schede",()=>db.cards.length>=50],
+["giro","🧭","Giramondo","Sblocca 5 slot diversi",()=>unl().size>=5],
+["hyb","🧬","Ibrida","Prima doppia origine",()=>db.cards.some(c=>c.s)],
+["mas","🌀","Maestro dei Crossover","5 doppie origini",()=>db.cards.filter(c=>c.s).length>=5],
+["leg","👑","Leggendaria","Una scheda di rarità massima",()=>db.cards.some(c=>rar(c)===5)],
+["tour","🍝","Tour d’Italia","5 regioni italiane diverse",()=>regs().size>=5],
+["dark","🦇","Notte eterna","Registra una Gotica",()=>hasT("gotica")],
+["curve","🍑","Curve pericolose","Registra una Culona",()=>hasT("culona")],
+["open","🏳️‍⚧️","Mente aperta","Registra una Trans",()=>hasT("trans")],
+["multi","🧩","Multitipo","Una scheda con 3 caratteristiche",()=>db.cards.some(c=>(c.tr||[]).length>=3)],
+["dcross","🖤","Dark crossover","Una Gotica con doppia origine",()=>db.cards.some(c=>c.s&&(c.tr||[]).includes("gotica"))],
+["trs8","🎨","Collezionista di tratti","8 caratteristiche diverse",()=>new Set(db.cards.flatMap(c=>c.tr||[])).size>=8],
+["trall","🏆","Tutti i tratti","Tutte le caratteristiche",()=>new Set(db.cards.flatMap(c=>c.tr||[])).size>=TR.length],
+...G.slice(0,6).map((g,i)=>["g"+i,["🏰","❄️","🦁","🐉","🗽","🦘"][i],"Palestra: "+g,"Completa tutti gli slot: "+g,()=>T.filter(t=>t[3]===i).every(t=>unl().has(t[0]))])];
+const earned=()=>new Set(MED.filter(m=>m[4]()).map(m=>m[0]));
+db.set=Object.assign({male:false,hint:false,title:"",theme:"red"},db.set||{});
+const T0=document.querySelector(".top h1").textContent;
+const TF=Object.fromEntries(T.map(t=>[t[0],t[1]]));
+const NM={IT:"Italiano",ES:"Spagnolo",DE:"Tedesco",GB:"Britannico / Irlandese",GR:"Greco",RO:"Rumeno",SC:"Scandinavo",EU:"Altro europeo",PL:"Polacco",RU:"Russo",UA:"Ucraino",BK:"Balcanico",MG:"Magrebino",SS:"Sudafricano",NA:"Nordamericano",LA:"Latino"};
+const TRF=TR.map(x=>x.slice());
+const TRM=[["gotica","🖤","Gotico"],["culona","🏋️","Spalle larghe"],["trans","🏳️‍⚧️","Trans"],["nerd","🤓","Nerd"],["sportiva","🏅","Sportivo"],["tatuata","🐉","Tatuato"],["alternativa","🎸","Alternativo"],["rossa","🔥","Rosso"],["occhialuta","👓","Occhialuto"],["tettona","🦍","Pettorali"],["cicciona","🍺","Pancione"],["curvy","🧔","Barbuto"],["palestrata","💪","Palestrato"],["piercing","💍","Piercing"],["provocante","😘","Sciupafemmine"],["bionda","👱‍♂️","Biondo"],["mora","👨‍🦱","Moro"],["festaiola","🪩","Festaiolo"],["timida","🫣","Timido"],["alta","🦒","Alto"]];
+const EMOSF=EMOS.slice();
+const EMOSM=["👨","👨‍🦰","👱‍♂️","👨‍🦱","👨‍🦳","👨‍🦲","🧔","👦","👴","🤴","🧙‍♂️","🧚‍♂️","🦸‍♂️","🦹‍♂️","🧛‍♂️","🧝‍♂️","🕺","👨‍🎤","👨‍🎨","👨‍🔬","👨‍💻","👨‍🎓","👨‍✈️","👨‍🚀","👨‍🍳","🏃‍♂️","🏄‍♂️","🧘‍♂️","🤸‍♂️","🏋️‍♂️","🚴‍♂️","⚽","🏀","🎮","🐶","🐻","🦁","🐺","🐯","🦅","🦈","🐉","🦖","🌲","🌊","🔥","⚡","🚀","🎸","🎧","📚","🍺","🍔","🏆","👑","😎","😏","🤓","😈","🥶","🤠","🥳","😴","🤪","🙃"];
+const DESC_F=Object.assign({},DESC),TDESC_F=Object.assign({},TDESC);
+const DESC_M={IT:"Specie diffusissima, si avvista ovunque. Gesticola anche al telefono e giudica con severità la tua carbonara.",FR:"Elegante e misterioso. Un suo sospiro vale tre frasi, e ha sempre un’opinione sul formaggio.",ES:"Nottambulo per natura. Cena alle dieci, esce a mezzanotte e il giorno dopo è comunque pieno di energia.",PT:"Dolce e malinconico, ha una parola intraducibile per ogni stato d’animo. Si riconosce dal sorriso.",DE:"Puntualissimo per istinto: se dice alle otto, sono le otto meno cinque. Ironia secca, cuore grande.",GB:"Ama il tè, il tempo uggioso e le scuse (“sorry”) dette a sproposito. Fuori dal pub si trasforma.",NL:"Alto, pratico e diretto. Va in bici con ogni clima e dice sempre quello che pensa.",GR:"Ospitale e solare, offre cibo prima ancora di salutare. Teatrale quanto basta nelle discussioni.",RO:"Determinato e ingegnoso. Parla una lingua latina che ti sembra di capire, finché non ci provi.",SC:"Rarità fredda e luminosa. Calmo, minimalista, ama il silenzio e le candele. Si scioglie solo dopo il terzo caffè.",EU:"Specie europea non catalogata. Il suo habitat è un punto della mappa che non avevi ancora esplorato.",PL:"Cordiale e tenace. Il suo brindisi è un rito e la sua cucina un incantesimo di zuppe.",RU:"Riservato all’inizio, leale per sempre. Lo sguardo serio nasconde un umorismo scurissimo.",UA:"Forte e luminoso, resiste a tutto con un sorriso. Sa cantare, riparare qualunque cosa e tenere testa a chiunque.",BK:"Caloroso e fiero, ti obbliga a mangiare ancora un po’. Ha storie lunghe e gesti larghi.",MG:"Generoso e magnetico, con un tè alla menta sempre pronto. Parla tre lingue in una frase.",SS:"Energia pura, stile inconfondibile, risata che si sente da lontano. Dove arriva, la stanza cambia musica.",ME:"Ospitale e raffinato, ti offre dolci e tè finché non ti arrendi. Occhi che raccontano più delle parole.",AC:"Specie rarissima, avvistata di rado. Custodisce le tradizioni della steppa e un fascino da altopiano.",AM:"Colorato e curioso, ha sempre un’opinione sulle spezie. Famiglia grande, cuore ancora più grande.",AO:"Preciso, curioso e pieno di sorprese. Conosce ogni nuova tendenza prima che arrivi.",SE:"Solare e instancabile, sorride sempre. Ama il caffè ghiacciato e il cibo da strada più di tutto.",NA:"Estroverso e positivo, saluta tutti come vecchi amici. Il suo “awesome” ha mille sfumature.",LA:"Caldo, ballerino e rumoroso nel modo migliore. Abbraccia al primo incontro e la puntualità è un optional.",OC:"Leggendario per distanza geografica. Rilassato e abbronzato, risponde a tutto con “no worries”.",HY:"Esemplare a doppio tipo. Due culture in una persona sola, con le parti migliori di entrambe e qualche contraddizione divertente."};
+const TDESC_M={gotica:"Sceglie il nero come filosofia di vita. Eyeliner affilato, playlist malinconica, ma sotto è tenerissimo.",culona:"Spalle larghe e portamento sicuro: occupa la porta intera quando entra.",trans:"Orgoglioso di chi è, con una sicurezza che molti non trovano mai. Un incontro raro.",nerd:"Sa tutto di fumetti, giochi o serie. Se tocchi il suo tema preferito, sei perso per un’ora.",sportiva:"Energia da vendere. Ti sfida a una corsa e vince.",tatuata:"Ogni tatuaggio ha una storia. Chiedila, ma preparati a un racconto lungo.",alternativa:"Segue regole tutte sue. Ascolta musica che non conosci e se ne vanta a ragione.",rossa:"Colore raro in natura: un’apparizione che si nota subito. Carattere acceso come i capelli.",occhialuta:"Gli occhiali gli danno un’aria da secchione: guarda con attenzione e capisce tutto.",tettona:"Pettorali ben visibili: difficile non notarli, e il sorriso fa il resto.",cicciona:"Morbido e accogliente, con un abbraccio che vale un divano. Cucina bene e ride di gusto.",curvy:"Barba curata e aria da boscaiolo: sa accendere un fuoco e una conversazione.",palestrata:"Alza più di te e te lo dice con gentilezza. Colazione proteica, sguardo da allenamento.",piercing:"Un luccichio qua e là: ogni piercing è un piccolo segnale di carattere.",provocante:"Lo sguardo dice più del dovuto. Sa quello che fa e lo fa con ironia.",bionda:"Biondo luminoso, sole in tasca. Attira l’attenzione anche con il cielo coperto.",mora:"Fascino classico e sguardo intenso. Il colore che non passa mai di moda.",festaiola:"Dove c’è musica, lui c’è già. Facile da incontrare, impossibile da fermare.",timida:"All’inizio dice poco. Dopo un po’ scopri che ha le battute migliori.",alta:"Domina la stanza dall’alto e vede tutto prima di te."};
+const RRF=RR.map(r=>r[0]);
+const RRM=["Gotico + Spalle larghe","Pettorali + Spalle larghe","Tatuato + Piercing","Nerd + Sportivo","Rosso","Trans","4+ caratteristiche","Pancione","Festaiolo"];
+const MEDF=MED.map(m=>m.slice());
+const MEDM={hyb:["🧬","Ibrido","Prima doppia origine"],leg:["👑","Leggendario","Una scheda di rarità massima"],dark:["🦇","Notte eterna","Registra un Gotico"],curve:["🏋️","Spalle da armadio","Registra uno con le Spalle larghe"],open:["🏳️‍⚧️","Mente aperta","Registra un Trans"],dcross:["🖤","Dark crossover","Un Gotico con doppia origine"]};
+const THEMES={red:["#c8102e","#8f0a20","Rosso"],blue:["#1d4fd8","#122f85","Blu"],green:["#1f9d55","#126035","Verde"],purple:["#7c3aed","#4c1d95","Viola"],pink:["#e0489a","#9d2468","Rosa"]};
+function applyMode(){const M=db.set.male;
+  T.forEach(t=>t[1]=M&&NM[t[0]]?NM[t[0]]:TF[t[0]]);
+  HY[1]=M?"Ibridi":"Ibride";
+  TR.splice(0,TR.length,...(M?TRM:TRF).map(x=>x.slice()));
+  EMOS.splice(0,EMOS.length,...(M?EMOSM:EMOSF));
+  Object.assign(DESC,M?DESC_M:DESC_F);Object.assign(TDESC,M?TDESC_M:TDESC_F);
+  RR.forEach((r,i)=>r[0]=(M?RRM:RRF)[i]);
+  MED.forEach((m,i)=>{const o=M&&MEDM[m[0]],f=MEDF[i];m[1]=o?o[0]:f[1];m[2]=o?o[1]:f[2];m[3]=o?o[2]:f[3]});
+  const th=THEMES[db.set.theme]||THEMES.red,st=document.documentElement.style;
+  if(db.set.theme==="red"){st.removeProperty("--body");st.removeProperty("--body-d")}else{st.setProperty("--body",th[0]);st.setProperty("--body-d",th[1])}
+  document.querySelector(".top h1").textContent=db.set.title||(M?"BOYDEX":T0);
+  document.querySelector("meta[name=theme-color]").content=th[0]}
+function setOpt(k,v){db.set[k]=v;save();applyMode();render()}
+
+
+function render(){
+  const s=$("#scr");const [v,a]=view.split(":");
+  if(db.pin&&!unlockedSess){$("#nav").style.visibility="hidden";s.innerHTML=lockV();return}
+  $("#nav").style.visibility="visible";
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v.split(":")[0]===v||(v==="type"&&b.dataset.v==="dex")));
+  s.innerHTML=({dex:dexV,type:typeV,card:cardV,form:formV,medals:medV,set:setV})[v](a);s.scrollTop=0;
+  if(v==="form")regToggle();
+}
+function go(v){view=v;delArm="";render()}
+function lockV(){return `<h2>BLOCCATO</h2><p>Inserisci il PIN per aprire il Ragadex.</p><input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN"><button class="btn" onclick="unlock()">Sblocca</button>`}
+function unlock(){if(hash($("#pin").value)===db.pin){unlockedSess=true;render()}else toast("PIN errato")}
+
+function dexV(){
+  const u=unl();let h=`<h2>SLOT ${u.size}/${T.length+1} · SCHEDE ${db.cards.length}</h2><div class="cnt">${[1,2,3,4,5].map(r=>`<span class="r${r}">${r}★ ${db.cards.filter(c=>rar(c)===r).length}</span>`).join("")}</div>`;
+  if(!db.cards.length)h+=`<div class="box">Nessuna scheda ancora. Tocca + NUOVA per registrare la prima e sbloccare il primo slot.</div>`;
+  G.forEach((g,gi)=>{h+=`<h3>${esc(g)}</h3><div class="grid">`;
+    T.filter(t=>t[3]===gi).forEach(t=>{const i=T.indexOf(t)+1,n=cardsOf(t[0]).length,ok=u.has(t[0]);
+      h+=`<button class="tile ${ok?"":"lock"} ${justNew===t[0]?"pop":""}" ${ok?`onclick="go('type:${t[0]}')"`:`onclick="toast('Slot bloccato: registra una scheda ${esc(t[1])}')"`}><span class="n">#${String(i).padStart(3,"0")}</span><span class="f">${t[2]}</span>${ok?esc(t[1])+`<br>×${n}`:"???"}</button>`});
+    h+=`</div>`});
+  const hn=cardsOf("HY").length,hk=u.has("HY");
+  h+=`<h3>${HY[1]}</h3><div class="grid"><button class="tile ${hk?"":"lock"} ${justNew==="HY"?"pop":""}" onclick="${hk?"go('type:HY')":"toast('Slot bloccato: registra una scheda con doppia origine')"}"><span class="n">#${String(T.length+1).padStart(3,"0")}</span><span class="f">🧬</span>${hk?HY[1]+"<br>×"+hn:"???"}</button></div>`;
+  justNew="";return h}
+
+function typeV(id){const t=tp(id),l=cardsOf(id);
+  let h=`<button class="btn alt" onclick="go('dex')">◀ Dex</button><h2>${t[2]} ${esc(t[1])}</h2><p class="muted">${id==="HY"?"Doppia origine":"Area: "+esc(G[t[3]])+" · Rarità base "+RL[t[4]]}<br>Schede: ${l.length}</p><div class="box" style="white-space:pre-wrap">${esc(DESC[id]||"Descrizione in arrivo.")}</div>`;
+  if(id==="IT"){const r=regs();h+=`<h3>Sotto-dex regioni ${r.size}/20</h3><div class="chips">${REG.map(x=>`<span class="${r.has(x)?"":"x"}">${r.has(x)?esc(x):"???"}</span>`).join("")}</div>`}
+  return h+l.map(cardRow).join("")}
+function cardRow(c){const r=rar(c);return `<button class="row r${r}" onclick="go('card:${c.id}')"><span class="e">${esc(c.emo)}</span><span class="m"><b>${esc(c.nick)} ${c.s?tp(c.p)[2]+tp(c.s)[2]:""}</b><span class="rar">${stars(r)}</span><span class="rchip">${RL[r].toUpperCase()}</span></span></button>`}
+
+function cardV(id){const c=db.cards.find(x=>x.id===id);if(!c)return dexV();
+  const badge=k=>{const t=tp(k);return `<span class="badge">${t[2]} ${esc(t[1])}</span>`};
+  return `<button class="btn alt" onclick="go('type:${c.s?"HY":c.p}')">◀ Indietro</button>
+  <h2>${esc(c.emo)} ${esc(c.nick)}</h2>${badge(c.p)}${c.s?badge(c.s):""}
+  <div class="rban r${rar(c)}"><span class="st">${stars(rar(c))}</span><b>${RL[rar(c)].toUpperCase()}</b></div><div class="muted">Base ${rbase(c)}★${rmods(c).map(x=>" · "+x[0]+" "+(x[2]>0?"+":"−")+Math.abs(x[2])).join("")}</div>
+  ${(c.tr||[]).length?`<div class="pk" style="margin:6px 0">${c.tr.map(k=>`<span class="on">${esc(trl(k))}</span>`).join("")}</div>`:""}
+  ${c.reg?`<div class="muted">Regione: ${esc(c.reg)}</div>`:""}
+  <div class="muted">${db.set.male?"Incontrato":"Incontrata"} il ${esc(c.date||"?")}</div>
+  <div class="box">${esc([c.p,c.s,c.s?"HY":""].filter(Boolean).map(k=>DESC[k]).concat((c.tr||[]).map(k=>TDESC[k])).filter(Boolean).join(" ")||"Descrizione in arrivo.")}</div>
+  <button class="btn" onclick="go('form:${c.id}')">Modifica</button>
+  <button class="btn alt" onclick="del('${c.id}')">${delArm===c.id?"Tocca ancora per eliminare":"Elimina"}</button>`}
+function del(id){if(delArm!==id){delArm=id;render();return}db.cards=db.cards.filter(c=>c.id!==id);save();go("dex");toast("Scheda eliminata")}
+
+function opts(sel,none){return (none?`<option value="">— nessuna —</option>`:"")+G.map((g,gi)=>`<optgroup label="${esc(g)}">${T.filter(t=>t[3]===gi).map(t=>`<option value="${t[0]}" ${t[0]===sel?"selected":""}>${t[2]} ${esc(t[1])}</option>`).join("")}</optgroup>`).join("")}
+function formV(id){
+  const c=db.cards.find(x=>x.id===id)||{id:"",nick:"",p:"IT",s:"",date:new Date().toISOString().slice(0,10),reg:"",emo:EMOS[0]};
+  return `<h2>${c.id?"MODIFICA":"NUOVA"} SCHEDA</h2>
+  <label>Soprannome</label><input id="f_nick" maxlength="40" value="${esc(c.nick)}" placeholder="Nome in codice">
+  <label>Avatar</label><input type="hidden" id="f_emo" value="${esc(c.emo)}"><div class="pk em">${EMOS.map(e=>`<span class="${e===c.emo?"on":""}" onclick="pickEmo(this)">${e}</span>`).join("")}</div><label>Caratteristiche</label><div class="pk" id="trs"><span class="${(c.tr||[]).length?"":"on"}" data-t="" onclick="togT(this)">Nessuna</span>${TR.map(t=>`<span class="${(c.tr||[]).includes(t[0])?"on":""}" data-t="${t[0]}" onclick="togT(this)">${t[1]} ${t[2]}</span>`).join("")}</div>
+  <label>Origine primaria</label><select id="f_p" onchange="regToggle()">${opts(c.p)}</select>
+  <label style="display:flex;gap:10px;align-items:center;margin-top:12px"><input type="checkbox" id="f_dbl" ${c.s?"checked":""} onchange="regToggle()" style="width:26px;height:26px;flex:none"> Ha doppia origine? (slot ${HY[1]})</label><div id="srow"><label>Seconda origine</label><select id="f_s" onchange="regToggle()">${opts(c.s)}</select></div>
+  <div id="regrow"><label>Regione italiana</label><select id="f_reg"><option value="">— non so —</option>${REG.map(r=>`<option ${r===c.reg?"selected":""}>${esc(r)}</option>`).join("")}</select></div>
+  <label>Data incontro</label><input id="f_date" type="date" value="${esc(c.date)}">
+  <button class="btn" onclick="saveCard('${c.id}')">Salva scheda</button><button class="btn alt" onclick="go('dex')">Annulla</button>`}
+function pickEmo(el){document.querySelectorAll(".pk.em span").forEach(x=>x.classList.remove("on"));el.classList.add("on");$("#f_emo").value=el.textContent}
+function togT(el){const all=[...document.querySelectorAll("#trs span")];if(!el.dataset.t){all.forEach(x=>x.classList.remove("on"));el.classList.add("on");return}el.classList.toggle("on");all[0].classList.toggle("on",!all.slice(1).some(x=>x.classList.contains("on")))}
+function regToggle(){const d=$("#f_dbl").checked;$("#srow").style.display=d?"block":"none";const r=$("#regrow");if(r)r.style.display=($("#f_p").value==="IT"||(d&&$("#f_s").value==="IT"))?"block":"none"}
+function saveCard(id){
+  const nick=$("#f_nick").value.trim();if(!nick){toast("Serve un soprannome");return}
+  const ev=$("#f_emo").value.trim();let em=ev;try{em=[...new Intl.Segmenter().segment(ev)][0].segment}catch(x){}em=em||EMOS[0];
+  const p=$("#f_p").value;let s=$("#f_dbl").checked?$("#f_s").value:"";if(s===p)s="";
+  const c={id:id||("c"+Date.now().toString(36)),nick,emo:em,p,s,reg:(p==="IT"||s==="IT")?$("#f_reg").value:"",date:$("#f_date").value,tr:[...document.querySelectorAll("#trs span.on")].map(x=>x.dataset.t).filter(Boolean)};
+  const u0=unl(),m0=earned();
+  const i=db.cards.findIndex(x=>x.id===c.id);if(i>=0)db.cards[i]=c;else db.cards.push(c);
+  save();const u1=unl(),m1=earned(),msg=[];
+  [...u1].filter(x=>!u0.has(x)).forEach(x=>{msg.push("Nuovo slot sbloccato: "+tp(x)[1]+"!");justNew=x});
+  MED.filter(m=>m1.has(m[0])&&!m0.has(m[0])).forEach(m=>msg.push("Medaglia: "+m[2]+" "+m[1]));
+  msg.push("Rarità: "+RL[rar(c)]);
+  view="card:"+c.id;render();toast(msg.join(" · "))}
+
+function medV(){const e=earned();return `<h2>MEDAGLIE ${e.size}/${MED.length}</h2>`+MED.map(m=>e.has(m[0])?`<div class="med"><span class="e">${m[1]}</span><div><b>${esc(m[2])}</b><small>${esc(m[3])}</small></div></div>`:`<div class="med lock"><span class="e">❔</span><div><b>???</b><small>${db.set.hint?esc(m[3]):"Medaglia segreta"}</small></div></div>`).join("")}
+
+function setV(){const S=db.set;return `<h2>OPZIONI</h2>
+  <label class="sw"><input type="checkbox" ${S.male?"checked":""} onchange="setOpt('male',this.checked)"> Mi piacciono i maschi</label>
+  <label class="sw"><input type="checkbox" ${S.hint?"checked":""} onchange="setOpt('hint',this.checked)"> Mostra gli obiettivi delle medaglie</label>
+  <h3>Colore</h3><div class="pk">${Object.keys(THEMES).map(k=>`<span class="${S.theme===k?"on":""}" onclick="setOpt('theme','${k}')">${THEMES[k][2]}</span>`).join("")}</div>`}
+function cp(){const t=$("#exp");t.select();try{navigator.clipboard.writeText(t.value).then(()=>toast("Backup copiato"),()=>{document.execCommand("copy");toast("Backup copiato")})}catch(e){try{document.execCommand("copy");toast("Backup copiato")}catch(x){toast("Seleziona e copia a mano")}}}
+function imp(){try{let a=JSON.parse($("#imp").value),st=null;if(!Array.isArray(a)){st=a.set;a=a.cards}if(!Array.isArray(a)||a.some(c=>!c.id||!tp(c.p)))throw 0;db.cards=a;if(st)Object.assign(db.set,st);save();applyMode();go("dex");toast("Ripristinate "+a.length+" schede")}catch(e){toast("Backup non valido")}}
+
+document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button");if(b)go(b.dataset.v)});
+applyMode();render();
+</script>
+</body>
+</html>
